@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ChartWrightAI — Impersonal, rules-based chart signals</title>
+<meta name="description" content="ChartWrightAI publishes impersonal, methodology-driven chart signals for 46 U.S. instruments across daily and six intraday timeframes. Identical for every subscriber. We never touch your account." />
+<link rel="canonical" href="https://ichartwrightai.com/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ChartWrightAI" />
+<meta property="og:title" content="ChartWrightAI — Impersonal, rules-based chart signals" />
+<meta property="og:description" content="The same signal, for everyone. Read by your agent, not ours. 46 instruments, seven timeframes, one methodology, zero account access." />
+<meta property="og:url" content="https://ichartwrightai.com/" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="ChartWrightAI — Impersonal, rules-based chart signals" />
+<meta name="twitter:description" content="The same signal, for everyone. Read by your agent, not ours." />
+<meta name="theme-color" content="#060b1c" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060b1c'/%3E%3Cpath d='M5 22 L12 14 L18 19 L27 8' fill='none' stroke='%234c8df6' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<style>
+  /* ---------- Tokens: dark-first (Gemini blueprint direction) ---------- */
+  :root {
+    --bg: #060b1c;            /* Void */
+    --bg-raised: #0d1530;     /* Deep panel */
+    --bg-glass: rgba(23, 33, 66, 0.55);
+    --line: rgba(122, 148, 210, 0.22);
+    --ink: #e8ecf7;           /* Paper */
+    --ink-soft: #a7b2d1;
+    --ink-faint: #6c7899;
+    --accent: #4c8df6;        /* Gemini blue */
+    --accent-2: #8a6ff0;      /* Iris */
+    --accent-3: #39c0e8;      /* Signal cyan */
+    --grad: linear-gradient(100deg, #39c0e8 0%, #4c8df6 45%, #8a6ff0 100%);
+    --ok: #4ad6a0;
+    --shadow: 0 24px 60px rgba(2, 6, 20, 0.55);
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #f4f7fe;
+      --bg-raised: #ffffff;
+      --bg-glass: rgba(255, 255, 255, 0.72);
+      --line: rgba(58, 82, 148, 0.18);
+      --ink: #131b33;
+      --ink-soft: #455072;
+      --ink-faint: #7683a6;
+      --accent: #2f6fe4;
+      --accent-2: #6d4fe0;
+      --accent-3: #0d9ecf;
+      --grad: linear-gradient(100deg, #0d9ecf 0%, #2f6fe4 45%, #6d4fe0 100%);
+      --ok: #158f66;
+      --shadow: 0 24px 60px rgba(31, 51, 106, 0.14);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #f4f7fe;
+    --bg-raised: #ffffff;
+    --bg-glass: rgba(255, 255, 255, 0.72);
+    --line: rgba(58, 82, 148, 0.18);
+    --ink: #131b33;
+    --ink-soft: #455072;
+    --ink-faint: #7683a6;
+    --accent: #2f6fe4;
+    --accent-2: #6d4fe0;
+    --accent-3: #0d9ecf;
+    --grad: linear-gradient(100deg, #0d9ecf 0%, #2f6fe4 45%, #6d4fe0 100%);
+    --ok: #158f66;
+    --shadow: 0 24px 60px rgba(31, 51, 106, 0.14);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:focus-visible, button:focus-visible, input:focus-visible {
+    outline: 2px solid var(--accent-3);
+    outline-offset: 2px;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Preview ribbon ---------- */
+  .preview-ribbon {
+    background: var(--bg-raised);
+    border-bottom: 1px solid var(--line);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-align: center;
+    padding: 8px 16px;
+  }
+  .preview-ribbon strong { color: var(--accent-3); font-weight: 600; }
+
+  /* ---------- Nav ---------- */
+  header.site {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--bg-glass);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; gap: 28px; padding: 14px 24px; max-width: 1080px; margin: 0 auto; }
+  .logo { display: flex; align-items: baseline; gap: 2px; font-weight: 700; font-size: 1.15rem; color: var(--ink); letter-spacing: -0.01em; }
+  .logo .mark {
+    background: var(--grad);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+  }
+  .nav-links { display: flex; gap: 22px; margin-left: auto; font-size: 0.92rem; }
+  .nav-links a { color: var(--ink-soft); }
+  .nav-links a:hover { color: var(--ink); }
+  .nav .cta-mini {
+    background: var(--grad); color: #fff; font-weight: 600;
+    padding: 8px 16px; border-radius: 999px; font-size: 0.88rem;
+    box-shadow: 0 4px 18px rgba(76, 141, 246, 0.35);
+  }
+  .menu-btn {
+    display: none; background: none; border: 1px solid var(--line); border-radius: 10px;
+    padding: 9px 11px; cursor: pointer; margin-left: 12px;
+  }
+  .menu-btn .bar { display: block; width: 18px; height: 2px; background: var(--ink); border-radius: 2px; }
+  .menu-btn .bar + .bar { margin-top: 4px; }
+  .nav-panel { border-top: 1px solid var(--line); padding: 8px 24px 16px; }
+  .nav-panel a { display: block; padding: 12px 0; color: var(--ink-soft); font-size: 1.02rem; border-bottom: 1px solid var(--line); }
+  .nav-panel a:last-child { border-bottom: none; }
+  .nav-panel[hidden] { display: none; }
+  @media (max-width: 720px) {
+    .nav-links a:not(.cta-mini) { display: none; }
+    .menu-btn { display: block; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; overflow: hidden; padding: 84px 0 72px; }
+  .hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.4; }
+  .hero-inner { position: relative; display: grid; gap: 44px; align-items: center; }
+  .hero-copy { display: grid; gap: 28px; max-width: 760px; }
+  @media (min-width: 980px) {
+    .hero-inner { grid-template-columns: 1.05fr 0.95fr; }
+    .hero h1 { font-size: clamp(2.1rem, 3.3vw, 3rem); }
+  }
+
+  /* Hero credibility strip: verified locked facts only */
+  .stats { display: flex; gap: 34px; flex-wrap: wrap; }
+  .stats .stat { display: grid; gap: 2px; }
+  .stats .n {
+    font-size: 1.5rem; font-weight: 750; letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .stats .l { font-size: 0.78rem; color: var(--ink-faint); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* Hero chart: a rendered product screen — deliberately dark in both themes */
+  .chart-card {
+    background: #0d1530;
+    border: 1px solid rgba(122, 148, 210, 0.28);
+    border-radius: 18px;
+    box-shadow: 0 24px 60px rgba(2, 6, 20, 0.55);
+    padding: 18px 18px 12px;
+    min-width: 0;
+  }
+  .chart-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+  .chart-head .sym { font-weight: 700; font-size: 0.95rem; color: #e8ecf7; letter-spacing: 0.02em; }
+  .chart-head .sym span { color: #6c7899; font-weight: 500; }
+  .chart-head .tag {
+    font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;
+    color: #39c0e8; border: 1px solid rgba(122, 148, 210, 0.28); border-radius: 999px; padding: 3px 10px;
+  }
+  #herochart { display: block; width: 100%; height: 300px; }
+  .chart-legend { display: flex; gap: 16px; padding: 10px 4px 4px; font-size: 0.72rem; color: #a7b2d1; flex-wrap: wrap; }
+  .chart-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  .eyebrow {
+    font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent-3); font-weight: 600;
+  }
+  h1 {
+    font-size: clamp(2.4rem, 6vw, 3.9rem);
+    line-height: 1.08; letter-spacing: -0.02em; font-weight: 750;
+    text-wrap: balance;
+  }
+  h1 .grad {
+    background: var(--grad);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+  }
+  .hero p.lede { font-size: 1.15rem; color: var(--ink-soft); max-width: 58ch; }
+
+  /* ---------- Signup form ---------- */
+  .signup { display: flex; gap: 10px; flex-wrap: wrap; max-width: 520px; }
+  .signup input[type="email"] {
+    flex: 1 1 260px;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-size: 1rem;
+  }
+  .signup input[type="email"]::placeholder { color: var(--ink-faint); }
+  .signup button {
+    background: var(--grad); border: none; color: #fff;
+    font-size: 1rem; font-weight: 650;
+    padding: 14px 26px; border-radius: 12px; cursor: pointer;
+    box-shadow: 0 6px 24px rgba(76, 141, 246, 0.4);
+    transition: transform 0.15s ease;
+  }
+  .signup button:hover { transform: translateY(-1px); }
+  .signup-note { font-size: 0.85rem; color: var(--ink-faint); max-width: 60ch; }
+  .signup-done {
+    display: none; align-items: center; gap: 8px;
+    color: var(--ok); font-weight: 600; font-size: 0.98rem;
+  }
+
+  /* ---------- Sections ---------- */
+  section.block { padding: 72px 0; border-top: 1px solid var(--line); }
+  .block h2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    letter-spacing: -0.015em; margin-bottom: 12px; text-wrap: balance;
+  }
+  .block .sub { color: var(--ink-soft); max-width: 62ch; margin-bottom: 40px; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .card {
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 26px;
+    box-shadow: var(--shadow);
+  }
+  .card h3 { font-size: 1.05rem; margin-bottom: 8px; }
+  .card p { font-size: 0.94rem; color: var(--ink-soft); }
+  .card .big {
+    font-size: 2rem; font-weight: 750; letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    background: var(--grad);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+  }
+
+  /* Coverage chips */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .chip {
+    font-size: 0.82rem; padding: 5px 12px; border-radius: 999px;
+    border: 1px solid var(--line); color: var(--ink-soft);
+    background: var(--bg-glass);
+  }
+
+  /* ---------- Pricing ---------- */
+  .tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .tier {
+    background: var(--bg-raised); border: 1px solid var(--line);
+    border-radius: 18px; padding: 30px 26px; display: grid; gap: 10px;
+    box-shadow: var(--shadow);
+  }
+  .tier.featured { border-color: var(--accent); position: relative; }
+  .tier h3 { font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); }
+  .tier .price { font-size: 2.6rem; font-weight: 750; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .tier .price span { font-size: 1rem; font-weight: 500; color: var(--ink-faint); }
+  .tier p { font-size: 0.92rem; color: var(--ink-soft); }
+  .parity {
+    margin-top: 26px; padding: 18px 22px; border-radius: 14px;
+    border: 1px solid var(--line); background: var(--bg-glass);
+    font-size: 0.95rem; color: var(--ink-soft);
+  }
+  .parity strong { color: var(--ink); }
+
+  /* ---------- Guardrails ---------- */
+  .rails { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .rail {
+    border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px;
+    background: var(--bg-raised); font-size: 0.94rem; color: var(--ink-soft);
+  }
+  .rail strong { display: block; color: var(--ink); margin-bottom: 4px; font-size: 0.98rem; }
+
+  /* ---------- How it works / sample signal ---------- */
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; align-items: start; }
+  .step { border: 1px solid var(--line); border-radius: 16px; padding: 24px; background: var(--bg-raised); }
+  .step .k {
+    font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent-3); font-weight: 650; display: block; margin-bottom: 8px;
+  }
+  .step h3 { font-size: 1.02rem; margin-bottom: 6px; }
+  .step p { font-size: 0.92rem; color: var(--ink-soft); }
+  .signal-card {
+    margin-top: 34px; border: 1px solid var(--line); border-radius: 18px;
+    background: var(--bg-raised); box-shadow: var(--shadow);
+    padding: 24px 26px; max-width: 560px;
+    font-variant-numeric: tabular-nums;
+  }
+  .signal-card .tag {
+    display: inline-block; font-size: 0.72rem; letter-spacing: 0.1em;
+    text-transform: uppercase; font-weight: 700; color: var(--accent-3);
+    border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px;
+    margin-bottom: 14px;
+  }
+  .signal-card .row { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; border-top: 1px solid var(--line); font-size: 0.95rem; }
+  .signal-card .row:first-of-type { border-top: none; }
+  .signal-card .row .label { color: var(--ink-faint); }
+  .signal-card .row .val { font-weight: 650; }
+  .signal-card .foot { margin-top: 12px; font-size: 0.8rem; color: var(--ink-faint); }
+
+  /* ---------- FAQ ---------- */
+  .faq { display: grid; gap: 12px; max-width: 760px; }
+  .faq details {
+    border: 1px solid var(--line); border-radius: 14px;
+    background: var(--bg-raised); padding: 0;
+  }
+  .faq summary {
+    cursor: pointer; padding: 18px 22px; font-weight: 650; font-size: 0.98rem;
+    list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; color: var(--accent); font-size: 1.3rem; font-weight: 400; }
+  .faq details[open] summary::after { content: "–"; }
+  .faq .a { padding: 0 22px 18px; font-size: 0.93rem; color: var(--ink-soft); max-width: 66ch; }
+
+  /* ---------- Closing CTA ---------- */
+  .closer { text-align: center; display: grid; gap: 22px; justify-items: center; }
+  .closer h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
+  .closer .signup { justify-content: center; }
+
+  /* ---------- Footer ---------- */
+  footer.site {
+    border-top: 1px solid var(--line);
+    padding: 48px 0 64px;
+    color: var(--ink-faint); font-size: 0.86rem;
+  }
+  footer .wrap { display: grid; gap: 14px; }
+  footer .fine { max-width: 76ch; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <nav class="nav" aria-label="Primary">
+    <span class="logo">ChartWright<span class="mark">AI</span></span>
+    <div class="nav-links">
+      <a href="#method">Method</a>
+      <a href="#how">How it works</a>
+      <a href="#coverage">Coverage</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="about.html">About</a>
+      <a href="#signup" class="cta-mini">Get the research</a>
+    </div>
+    <button class="menu-btn" aria-expanded="false" aria-controls="mobilenav" aria-label="Open menu">
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+  </nav>
+  <div class="nav-panel" id="mobilenav" hidden>
+    <a href="#method">Method</a>
+    <a href="#how">How it works</a>
+    <a href="#coverage">Coverage</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="about.html">About</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <canvas class="hero-canvas" id="constellation" aria-hidden="true"></canvas>
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow">Rules-based chart signals</span>
+        <h1>The same signal, for everyone.<br><span class="grad">Read by your agent, not ours.</span></h1>
+        <p class="lede">
+          ChartWrightAI publishes impersonal, methodology-driven chart signals for 46 U.S. instruments,
+          across daily and six intraday timeframes — built to be consumed inside your own tools and agents.
+          We never touch your account, and every subscriber sees identical signal content.
+        </p>
+        <form class="signup" id="signup" aria-label="Email signup">
+          <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address" />
+          <button type="submit">Send me the research</button>
+        </form>
+        <p class="signup-done" id="signup-done">✓ Almost there — your email app will open with a pre-filled message. Send it and you're on the list.</p>
+        <p class="signup-note">Newsletters and research notes. No account access requested, ever. Unsubscribe anytime.</p>
+        <div class="stats" aria-label="Product facts">
+          <div class="stat"><span class="n">46</span><span class="l">Instruments</span></div>
+          <div class="stat"><span class="n">7</span><span class="l">Timeframes</span></div>
+          <div class="stat"><span class="n">1</span><span class="l">Methodology</span></div>
+          <div class="stat"><span class="n">0</span><span class="l">Account access</span></div>
+        </div>
+      </div>
+      <div class="chart-card" role="img" aria-label="Illustrative candlestick chart with a moving-average ribbon and example long and end-of-day flat markers">
+        <div class="chart-head">
+          <span class="sym">AAPL <span>· 15-minute</span></span>
+          <span class="tag">Illustrative — not a live signal</span>
+        </div>
+        <canvas id="herochart"></canvas>
+        <div class="chart-legend">
+          <span><i style="background:#2596c4"></i>Up candle</span>
+          <span><i style="background:#d85f83"></i>Down candle</span>
+          <span><i style="background:#8a6ff0"></i>Methodology ribbon</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="method">
+    <div class="wrap">
+      <h2>Methodology first. Accounts never.</h2>
+      <p class="sub">
+        ChartWrightAI is a signal publisher, not a broker, adviser, or trading bot. The methodology decides;
+        the chart shows its work; your own third-party agent decides what to do with it.
+      </p>
+      <div class="cards">
+        <div class="card">
+          <h3>Impersonal by design</h3>
+          <p>Signals are never tailored and never account-aware. For a given instrument and timeframe, every subscriber receives the same content at the same time.</p>
+        </div>
+        <div class="card">
+          <h3>End-of-day flat</h3>
+          <p>The methodology closes every session flat. No overnight positions are ever part of a published signal.</p>
+        </div>
+        <div class="card">
+          <h3>Agent-ready delivery</h3>
+          <p>Signals are structured for machine consumption, so your own agents and workflows can read them directly — on your terms, in your systems.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="how">
+    <div class="wrap">
+      <h2>How it works</h2>
+      <p class="sub">Three steps. ChartWrightAI does the first one; you own the other two.</p>
+      <div class="steps">
+        <div class="step">
+          <span class="k">Step 1 — We publish</span>
+          <h3>The methodology speaks</h3>
+          <p>For each instrument and timeframe, the methodology publishes its signal — the same content, to every subscriber, at the same time.</p>
+        </div>
+        <div class="step">
+          <span class="k">Step 2 — Your agent reads</span>
+          <h3>Structured for machines</h3>
+          <p>Signals are built to be consumed by your own tools and agents. You set your own thresholds, filters, and alerts on your side.</p>
+        </div>
+        <div class="step">
+          <span class="k">Step 3 — You decide</span>
+          <h3>Your account, your call</h3>
+          <p>Every decision and every order stays with you. ChartWrightAI never sees your account and never acts on it.</p>
+        </div>
+      </div>
+      <div class="signal-card" aria-label="Illustrative sample signal">
+        <span class="tag">Illustrative sample — not a live signal</span>
+        <div class="row"><span class="label">Instrument</span><span class="val">AAPL</span></div>
+        <div class="row"><span class="label">Timeframe</span><span class="val">15-minute</span></div>
+        <div class="row"><span class="label">Session posture</span><span class="val">EOD flat</span></div>
+        <div class="row"><span class="label">Distribution</span><span class="val">Identical to all subscribers</span></div>
+        <p class="foot">Final signal format ships with the methodology. This card shows the delivery idea, not real signal content.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="coverage">
+    <div class="wrap">
+      <h2>46 instruments. Seven timeframes.</h2>
+      <p class="sub">A deliberately fixed universe: the Dow 30, the 11 SPDR sector ETFs, and 5 market anchors — covered daily plus six intraday timeframes.</p>
+      <div class="cards">
+        <div class="card"><span class="big">30</span><h3>Dow components</h3><p>Every constituent of the Dow Jones Industrial Average.</p></div>
+        <div class="card"><span class="big">11</span><h3>SPDR sectors</h3><p>The full sector ETF suite, one lens per slice of the market.</p></div>
+        <div class="card"><span class="big">5</span><h3>Market anchors</h3><p>Broad-market reference instruments that frame every session.</p></div>
+        <div class="card"><span class="big">1 + 6</span><h3>Timeframes</h3><p>Daily coverage plus six intraday timeframes per instrument.</p></div>
+      </div>
+      <div class="chips" aria-label="Coverage traits">
+        <span class="chip">Fixed universe — no chasing tickers</span>
+        <span class="chip">U.S. listed</span>
+        <span class="chip">Identical across all tiers</span>
+        <span class="chip">EOD flat</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="pricing">
+    <div class="wrap">
+      <h2>Simple pricing, identical signals.</h2>
+      <p class="sub">Three tiers, one methodology. Whatever you pay, the signal content for a given instrument and timeframe is exactly the same.</p>
+      <div class="tiers">
+        <div class="tier">
+          <h3>Basic</h3>
+          <div class="price">$20<span>/mo</span></div>
+          <p>The complete signal set across all 46 instruments and all seven timeframes.</p>
+        </div>
+        <div class="tier featured">
+          <h3>Premium</h3>
+          <div class="price">$25<span>/mo</span></div>
+          <p>The same complete signal set. Tier packaging beyond signal content is being finalized.</p>
+        </div>
+        <div class="tier">
+          <h3>Enterprise</h3>
+          <div class="price">$30<span>/mo</span></div>
+          <p>The same complete signal set. Tier packaging beyond signal content is being finalized.</p>
+        </div>
+      </div>
+      <div class="parity">
+        <strong>Signal parity is a promise, not a plan.</strong> No tier ever receives earlier, deeper, or different signal
+        content than another. Tiers will differ only in delivery and service, never in what the methodology says.
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="guardrails">
+    <div class="wrap">
+      <h2>What ChartWrightAI will never do</h2>
+      <p class="sub">These are product boundaries, not settings. They are locked by design.</p>
+      <div class="rails">
+        <div class="rail"><strong>Never executes trades</strong> No order is ever placed by ChartWrightAI, on any account, anywhere.</div>
+        <div class="rail"><strong>Never manages accounts</strong> No custody, no discretion, no access to your brokerage.</div>
+        <div class="rail"><strong>Never ingests balances</strong> Your positions and balances are never read, stored, or considered.</div>
+        <div class="rail"><strong>Never personalizes signals</strong> No signal is ever tailored to a subscriber or an account.</div>
+      </div>
+    </div>
+  </section>
+  <section class="block" id="agentic">
+    <div class="wrap">
+      <h2>Forged by agents. Governed by humans.</h2>
+      <p class="sub">ChartWrightAI doesn't just publish signals for the agentic era — it's built by one. Our formulas and models are developed, challenged, and shipped through multi-step agentic workflows, with a human decision at every gate.</p>
+      <div class="cards">
+        <div class="card">
+          <h3>Specialized research agents</h3>
+          <p>Isolated quantitative research agents work the methodology through multi-step cycles — hypothesis, test, challenge — insulated from production so exploration never leaks into what ships.</p>
+        </div>
+        <div class="card">
+          <h3>Adversarial review, by design</h3>
+          <p>Every proposal is independently reviewed by an agent lane that didn't build it. Nothing promotes itself — not code, not formulas, not results.</p>
+        </div>
+        <div class="card">
+          <h3>Human approval gates</h3>
+          <p>No formula, signal, or release advances without human sign-off. Our automation follows rules, escalates what it can't decide, and never freelances.</p>
+        </div>
+        <div class="card">
+          <h3>Every AI ecosystem, one signal</h3>
+          <p>Output is structured for whatever agent stack you run — consume ChartWrightAI signals in your own workflows, on any platform, and they read identically everywhere.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="faq">
+    <div class="wrap">
+      <h2>Questions, answered straight</h2>
+      <p class="sub">The answers below are the product. If an answer ever changes, the product changed.</p>
+      <div class="faq">
+        <details>
+          <summary>Is this investment advice?</summary>
+          <p class="a">No. ChartWrightAI publishes impersonal, rules-based signals — the same content to every subscriber. Nothing is tailored to you, your account, or your situation, and nothing here is a recommendation to buy or sell any security.</p>
+        </details>
+        <details>
+          <summary>Do you ever touch my account?</summary>
+          <p class="a">Never. ChartWrightAI places no orders, holds no custody, has no discretion, and never reads your balances or positions. If a tool you use connects to your broker, that's your tool acting under your control — not ours.</p>
+        </details>
+        <details>
+          <summary>Why is signal content identical on every tier?</summary>
+          <p class="a">Because that's what keeps the signals impersonal and auditable. No tier gets earlier, deeper, or different signal content. Tiers will differ only in delivery and service.</p>
+        </details>
+        <details>
+          <summary>How are signals delivered?</summary>
+          <p class="a">Structured for machine consumption, so your own agents and workflows can read them directly. Final delivery formats are being finalized and will be documented before launch.</p>
+        </details>
+        <details>
+          <summary>Will the signals make me money?</summary>
+          <p class="a">We don't know — and anyone who answers "yes" is selling you something. Markets carry real risk, and no methodology wins every trade. What we promise is narrower and checkable: rules-based signals, published identically to everyone, from a methodology whose discipline we hold ourselves to in public. What you do with them — and how you manage risk — stays in your hands.</p>
+        </details>
+        <details>
+          <summary>What does "EOD flat" mean?</summary>
+          <p class="a">The methodology closes every session flat — no published signal ever carries a position overnight.</p>
+        </details>
+        <details>
+          <summary>Why only 46 instruments?</summary>
+          <p class="a">A fixed, liquid, U.S.-listed universe — the Dow 30, the 11 SPDR sector ETFs, and 5 market anchors — keeps the methodology testable and the signal set honest. No ticker-chasing. ChartWrightAI Research covers a wider set — including major crypto and fixed-income ETFs — but coverage is charting and analysis, never a signal.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="research">
+    <div class="wrap">
+      <h2>ChartWrightAI Research — coming soon</h2>
+      <p class="sub">Quarterly market guides, earnings and key-event calendars, an interactive chart-pattern atlas, and the technical and geometrical work behind the methodology. Research coverage reaches beyond the signal universe — including major crypto ETFs and fixed-income ETFs — with charting and analysis, never signals. Sign up below and it lands in your inbox as it ships.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap closer">
+      <h2>The methodology is built.<br><span style="background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;">Be there when it ships.</span></h2>
+      <form class="signup" id="signup-2" aria-label="Email signup">
+        <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address" />
+        <button type="submit">Send me the research</button>
+      </form>
+      <p class="signup-done" id="signup-done-2">✓ Almost there — your email app will open with a pre-filled message. Send it and you're on the list.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span class="logo">ChartWright<span class="mark">AI</span></span>
+    <p class="fine">
+      ChartWrightAI publishes impersonal, rules-based chart signals for informational purposes. Nothing on this site is
+      personalized investment advice or a recommendation to buy or sell any security. Trading involves substantial risk,
+      including the loss of principal. Past methodology behavior does not guarantee future results.
+    </p>
+    <p>Reach out: Jack Zingale Schiro — <a href="mailto:jack@ichartwrightai.com">jack@ichartwrightai.com</a> · Dan Lauterbach — <a href="mailto:dan@ichartwrightai.com">dan@ichartwrightai.com</a></p>
+    <p>© 2026 ChartWrightAI · ichartwrightai.com · <a href="about.html">About</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p>
+  </div>
+</footer>
+
+<script>
+  // Email signup: no third-party provider yet, so the form composes a
+  // pre-filled message to ChartWrightAI. Replace with a form-capture
+  // endpoint when one is approved.
+  [['signup', 'signup-done'], ['signup-2', 'signup-done-2']].forEach(function (pair) {
+    document.getElementById(pair[0]).addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = this.querySelector('input[type="email"]').value;
+      document.getElementById(pair[1]).style.display = 'flex';
+      window.location.href = 'mailto:jack@ichartwrightai.com'
+        + '?subject=' + encodeURIComponent('ChartWrightAI newsletter signup')
+        + '&body=' + encodeURIComponent('Please add this address to the ChartWrightAI research list: ' + email);
+    });
+  });
+
+  // Mobile menu toggle
+  (function () {
+    var btn = document.querySelector('.menu-btn');
+    var panel = document.getElementById('mobilenav');
+    btn.addEventListener('click', function () {
+      var open = panel.hidden;
+      panel.hidden = !open;
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    });
+    panel.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') { panel.hidden = true; btn.setAttribute('aria-expanded', 'false'); }
+    });
+  })();
+
+  // Hero chart: illustrative candlesticks from deterministic synthetic data.
+  // Real signal rendering ships with the methodology; this is a product-shape
+  // illustration only, labeled as such in the card header.
+  (function () {
+    var canvas = document.getElementById('herochart');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var UP = '#2596c4', DOWN = '#d85f83', MA = '#8a6ff0',
+        GRID = 'rgba(122,148,210,0.14)', INK = '#a7b2d1', FAINT = '#6c7899';
+    var N = 44;
+
+    function rnd(i) { var x = Math.sin(i * 12.9898) * 43758.5453; return x - Math.floor(x); }
+
+    var candles = [], price = 74;
+    for (var i = 0; i < N; i++) {
+      var drift = Math.sin(i / 6.5) * 0.32 + (rnd(i) - 0.34) * 0.85;
+      var o = price, cl = price + drift;
+      var hi = Math.max(o, cl) + rnd(i + 7) * 0.4;
+      var lo = Math.min(o, cl) - rnd(i + 13) * 0.4;
+      candles.push({ o: o, c: cl, h: hi, l: lo });
+      price = cl;
+    }
+    var ma = candles.map(function (_, i) {
+      var s = 0, n = 0;
+      for (var j = Math.max(0, i - 7); j <= i; j++) { s += candles[j].c; n++; }
+      return s / n;
+    });
+    var signalIdx = -1;
+    for (i = 12; i < N - 6; i++) {
+      if (candles[i].c > ma[i] && candles[i - 1].c <= ma[i - 1]) { signalIdx = i; break; }
+    }
+
+    function chip(x, y, text, bg) {
+      ctx.font = '700 ' + 10 * devicePixelRatio + 'px system-ui, sans-serif';
+      var padX = 6 * devicePixelRatio, h = 18 * devicePixelRatio;
+      var w = ctx.measureText(text).width + padX * 2;
+      x = Math.min(Math.max(x - w / 2, 4), canvas.width - w - 4);
+      ctx.fillStyle = bg;
+      ctx.beginPath();
+      ctx.roundRect(x, y, w, h, 5 * devicePixelRatio);
+      ctx.fill();
+      ctx.fillStyle = '#0d1530';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, x + padX, y + h / 2 + devicePixelRatio);
+    }
+
+    function draw() {
+      var r = canvas.getBoundingClientRect();
+      canvas.width = r.width * devicePixelRatio;
+      canvas.height = r.height * devicePixelRatio;
+      var W = canvas.width, H = canvas.height;
+      var padL = 8 * devicePixelRatio, padR = 44 * devicePixelRatio,
+          padT = 26 * devicePixelRatio, padB = 12 * devicePixelRatio;
+      var lo = Infinity, hi = -Infinity;
+      candles.forEach(function (c) { lo = Math.min(lo, c.l); hi = Math.max(hi, c.h); });
+      lo -= 0.3; hi += 0.3;
+      function X(i) { return padL + (i + 0.5) * (W - padL - padR) / N; }
+      function Y(v) { return padT + (hi - v) * (H - padT - padB) / (hi - lo); }
+
+      ctx.clearRect(0, 0, W, H);
+      // grid + right-edge price labels
+      ctx.strokeStyle = GRID;
+      ctx.lineWidth = devicePixelRatio;
+      ctx.fillStyle = FAINT;
+      ctx.font = 500 + ' ' + 10 * devicePixelRatio + 'px system-ui, sans-serif';
+      ctx.textBaseline = 'middle';
+      for (var g = 0; g < 4; g++) {
+        var v = lo + (hi - lo) * (g + 0.5) / 4;
+        var y = Y(v);
+        ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR + 6 * devicePixelRatio, y); ctx.stroke();
+        ctx.fillText(v.toFixed(2), W - padR + 10 * devicePixelRatio, y);
+      }
+      // MA ribbon under candles
+      ctx.strokeStyle = MA;
+      ctx.lineWidth = 2 * devicePixelRatio;
+      ctx.beginPath();
+      ma.forEach(function (v, i) { i ? ctx.lineTo(X(i), Y(v)) : ctx.moveTo(X(i), Y(v)); });
+      ctx.stroke();
+      // candles
+      var slot = (W - padL - padR) / N, bodyW = Math.max(3 * devicePixelRatio, slot * 0.55);
+      candles.forEach(function (c, i) {
+        var up = c.c >= c.o, col = up ? UP : DOWN, x = X(i);
+        ctx.strokeStyle = col; ctx.fillStyle = col;
+        ctx.lineWidth = 1.5 * devicePixelRatio;
+        ctx.beginPath(); ctx.moveTo(x, Y(c.h)); ctx.lineTo(x, Y(c.l)); ctx.stroke();
+        var yTop = Y(Math.max(c.o, c.c)), yBot = Y(Math.min(c.o, c.c));
+        ctx.beginPath();
+        ctx.roundRect(x - bodyW / 2, yTop, bodyW, Math.max(yBot - yTop, 2 * devicePixelRatio), 2 * devicePixelRatio);
+        ctx.fill();
+      });
+      // session-close dashed line + markers
+      var xEnd = X(N - 1);
+      ctx.strokeStyle = GRID;
+      ctx.setLineDash([4 * devicePixelRatio, 4 * devicePixelRatio]);
+      ctx.beginPath(); ctx.moveTo(xEnd, padT - 6 * devicePixelRatio); ctx.lineTo(xEnd, H - padB); ctx.stroke();
+      ctx.setLineDash([]);
+      if (signalIdx > 0) chip(X(signalIdx), Y(candles[signalIdx].l) + 8 * devicePixelRatio, 'LONG', UP);
+      chip(xEnd, 2 * devicePixelRatio, 'EOD FLAT', '#a7b2d1');
+    }
+    window.addEventListener('resize', draw);
+    draw();
+  })();
+
+  // Hero: drifting blueprint constellation — nodes joined into a faint
+  // signal line, honoring prefers-reduced-motion with a static draw.
+  (function () {
+    var canvas = document.getElementById('constellation');
+    var ctx = canvas.getContext('2d');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var pts = [];
+    var W, H;
+
+    function resize() {
+      var r = canvas.getBoundingClientRect();
+      W = canvas.width = r.width * devicePixelRatio;
+      H = canvas.height = r.height * devicePixelRatio;
+    }
+    function seed() {
+      pts = [];
+      var n = 26;
+      for (var i = 0; i < n; i++) {
+        pts.push({
+          x: (i / (n - 1)) * W,
+          y: H * (0.25 + 0.5 * Math.abs(Math.sin(i * 1.7))),
+          vy: (Math.sin(i * 3.1) * 0.18 + 0.08) * devicePixelRatio,
+          r: (1.2 + (i % 3)) * devicePixelRatio
+        });
+      }
+    }
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      var css = getComputedStyle(document.documentElement);
+      var line = css.getPropertyValue('--accent').trim();
+      var glow = css.getPropertyValue('--accent-2').trim();
+      ctx.strokeStyle = line;
+      ctx.globalAlpha = 0.28;
+      ctx.lineWidth = 1 * devicePixelRatio;
+      ctx.beginPath();
+      pts.forEach(function (p, i) { i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y); });
+      ctx.stroke();
+      ctx.globalAlpha = 0.5;
+      ctx.fillStyle = glow;
+      pts.forEach(function (p) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+    }
+    function tick() {
+      pts.forEach(function (p) {
+        p.y += p.vy;
+        if (p.y < H * 0.15 || p.y > H * 0.85) p.vy *= -1;
+      });
+      draw();
+      requestAnimationFrame(tick);
+    }
+    window.addEventListener('resize', function () { resize(); seed(); draw(); });
+    resize(); seed(); draw();
+    if (!reduced) requestAnimationFrame(tick);
+  })();
+</script>
+
+</body>
+</html>
