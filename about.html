@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About ChartWrightAI</title>
+<meta name="description" content="Why ChartWrightAI exists and the founders behind it." />
+<style>
+  :root {
+    --bg: #060b1c; --bg-raised: #0d1530; --bg-glass: rgba(23,33,66,0.55);
+    --line: rgba(122,148,210,0.22);
+    --ink: #e8ecf7; --ink-soft: #a7b2d1; --ink-faint: #6c7899;
+    --accent: #4c8df6; --accent-2: #8a6ff0; --accent-3: #39c0e8;
+    --grad: linear-gradient(100deg, #39c0e8 0%, #4c8df6 45%, #8a6ff0 100%);
+    --shadow: 0 24px 60px rgba(2,6,20,0.55);
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #f4f7fe; --bg-raised: #ffffff; --bg-glass: rgba(255,255,255,0.72);
+      --line: rgba(58,82,148,0.18);
+      --ink: #131b33; --ink-soft: #455072; --ink-faint: #7683a6;
+      --accent: #2f6fe4; --accent-2: #6d4fe0; --accent-3: #0d9ecf;
+      --grad: linear-gradient(100deg, #0d9ecf 0%, #2f6fe4 45%, #6d4fe0 100%);
+      --shadow: 0 24px 60px rgba(31,51,106,0.14);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #f4f7fe; --bg-raised: #ffffff; --bg-glass: rgba(255,255,255,0.72);
+    --line: rgba(58,82,148,0.18);
+    --ink: #131b33; --ink-soft: #455072; --ink-faint: #7683a6;
+    --accent: #2f6fe4; --accent-2: #6d4fe0; --accent-3: #0d9ecf;
+    --grad: linear-gradient(100deg, #0d9ecf 0%, #2f6fe4 45%, #6d4fe0 100%);
+    --shadow: 0 24px 60px rgba(31,51,106,0.14);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); text-decoration: none; }
+  a:focus-visible { outline: 2px solid var(--accent-3); outline-offset: 2px; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+  .ribbon {
+    background: var(--bg-raised); border-bottom: 1px solid var(--line);
+    font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-soft); text-align: center; padding: 8px 16px;
+  }
+  .ribbon strong { color: var(--accent-3); font-weight: 600; }
+  header.page { padding: 72px 0 40px; }
+  .eyebrow { font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-3); font-weight: 600; }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -0.02em; line-height: 1.1; margin: 10px 0 16px; text-wrap: balance; }
+  h1 .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lede { color: var(--ink-soft); font-size: 1.08rem; max-width: 62ch; }
+  section { padding: 40px 0; }
+  .story p { color: var(--ink-soft); max-width: 66ch; margin-bottom: 16px; }
+  .story strong { color: var(--ink); }
+  .founder {
+    border: 1px solid var(--line); border-radius: 18px; background: var(--bg-raised);
+    box-shadow: var(--shadow); padding: 32px; margin-bottom: 24px;
+  }
+  .founder h2 { font-size: 1.4rem; letter-spacing: -0.015em; }
+  .founder .role { color: var(--accent-3); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; margin: 4px 0 16px; }
+  .founder p { color: var(--ink-soft); font-size: 0.97rem; max-width: 66ch; margin-bottom: 12px; }
+  .founder .contact { font-size: 0.9rem; color: var(--ink-faint); }
+  .pending { border-style: dashed; }
+  .pending .note { color: var(--ink-faint); font-style: italic; }
+  footer.site { border-top: 1px solid var(--line); padding: 40px 0 64px; color: var(--ink-faint); font-size: 0.86rem; }
+  footer .wrap { display: grid; gap: 10px; }
+</style>
+</head>
+<body>
+<header class="page">
+  <div class="wrap">
+    <span class="eyebrow">About ChartWrightAI</span>
+    <h1>Built by people who sold Wall Street's answers<br><span class="grad">and wanted a more honest one.</span></h1>
+    <p class="lede">ChartWrightAI exists because disciplined, rules-based market signals shouldn't require a private-bank relationship — and shouldn't come wrapped in hype, tips, or someone else's hands on your account.</p>
+  </div>
+</header>
+
+<main>
+  <section class="story">
+    <div class="wrap">
+      <p><strong>The premise is simple.</strong> Most market content fails in one of two ways: it's personalized advice dressed up as research, or it's an indicator firehose with no conviction behind it. ChartWrightAI is neither. One methodology publishes one verdict per instrument, per timeframe — the same content, to every subscriber, at the same time. It is never tailored, never account-aware, and never places a trade.</p>
+      <p><strong>The discipline is the product.</strong> A fixed 46-instrument universe. Daily plus six intraday timeframes. Flat at every close. A shipment bar the methodology must clear before results are ever claimed — not a number tuned to look good in a backtest. What we publish, we publish because the rules said so.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="founder">
+        <h2>Jack Zingale Schiro</h2>
+        <p class="role">Founder &amp; Chief Architect</p>
+        <p>Jack spent fifteen-plus years inside high-net-worth wealth management — Morgan Stanley, Russell Investments, Lincoln Financial, JPMorgan Chase, LPL / Wealth Enhancement Group, and Raymond James's Alex. Brown division — generating more than $4 billion in career assets, including over $1.5 billion in tax-managed strategies.</p>
+        <p>At JPMorgan he served as one of two investment strategists for the firm's top wealth management division, supporting more than 1,000 advisors on advanced portfolio strategy. As a private wealth advisor he built a $170M+ practice ranked at the top of his firm for net new assets. His product depth runs through customized equity and fixed-income SMAs, tax management and direct indexing, derivatives, and exchange funds — the machinery of institutional portfolios.</p>
+        <p>ChartWrightAI is his answer to a question that career kept raising: what would market signals look like if they were built with institutional discipline, stripped of personalization, and published the same way to everyone? He owns ChartWrightAI's product architecture, financial modeling, and go-to-market strategy.</p>
+        <p>He holds a B.S. in Business Administration from Carthage College, completed postgraduate financial management studies at Boston University, and has held FINRA Series 7, 63, and 65 registrations.</p>
+        <p class="contact"><a href="mailto:jack@ichartwrightai.com">jack@ichartwrightai.com</a></p>
+      </div>
+
+      <div class="founder">
+        <h2>Dan Lauterbach</h2>
+        <p class="role">Co-Founder &amp; Chief Technology Officer</p>
+        <p>Dan's engineering career began in actual rocket science — computational flow and thermal analysis for solid-fuel rocket motors at ATK — and has run for more than three decades through the systems that keep industrial enterprises honest: product lifecycle management, CAD/CAE platforms like Dassault 3DExperience and Siemens Teamcenter and NX, and the data infrastructure underneath them.</p>
+        <p>That career now centers on agentic AI. As Head of Agentic Operations at Emerson, Dan directs how networks of specialized AI agents and human teams intersect — passing data, executing multi-step workflows, and handling exceptions across departments. It's the same discipline ChartWrightAI is built on: automation that follows rules, escalates what it can't decide, and never freelances.</p>
+        <p>At ChartWrightAI, Dan owns the technology — platform architecture, data engineering, and the agentic infrastructure that publishes every signal identically, to every subscriber, at the same time. He works across Databricks, Azure OpenAI, and modern data-science tooling, and writes Java, Python, JavaScript, and C++.</p>
+        <p>He holds an M.S. in Mechanical Engineering from the University of Utah and a B.S. in Mechanical Engineering from the University of Nebraska–Lincoln.</p>
+        <p class="contact"><a href="mailto:dan@ichartwrightai.com">dan@ichartwrightai.com</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>ChartWrightAI publishes impersonal, rules-based chart signals for informational purposes. Nothing on this site is personalized investment advice.</p>
+    <p>© 2026 ChartWrightAI · ichartwrightai.com · <a href="index.html">Home</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p>
+  </div>
+</footer>
+</body>
+</html>
