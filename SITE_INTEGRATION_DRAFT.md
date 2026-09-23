@@ -1,9 +1,12 @@
-# Draft: Six-Business-Line Website Integration
+# Six-Business-Line Website Integration — Public Development Note
 
-**Status:** DRAFT ONLY — independent review required before implementation or publication  
-**Scope:** ChartWright AI public website and verified private workspaces  
-**Source brief:** `six-business-line-website-integration-program.md` in the COO workspace  
-**External effect:** None. This file is not linked from a public page.
+**Status:** CONTROLLED DEVELOPMENT — architecture note, not evidence of capability availability
+
+**Scope:** ChartWright AI public website; private workspaces are described only as protected boundaries
+
+**Source basis:** CEO-approved six-business-line integration direction; internal source materials are not included
+
+**External effect:** None. This document does not activate a capability, expose a private workspace, or authorize publication, customer access, automation, trading, or execution.
 
 ## Purpose
 
