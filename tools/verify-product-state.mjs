@@ -6,6 +6,7 @@ const htmlFiles = [
   "about.html",
   "trust.html",
   "research.html",
+  "tools.html",
   "privacy.html",
   "terms.html",
   "404.html",
@@ -20,7 +21,7 @@ function fail(message) {
 }
 
 const pages = Object.fromEntries(htmlFiles.map((name) => [name, read(name)]));
-const dated = ["index.html", "about.html", "trust.html", "research.html", "privacy.html", "terms.html"];
+const dated = ["index.html", "about.html", "trust.html", "research.html", "tools.html", "privacy.html", "terms.html"];
 for (const name of dated) {
   if (!pages[name].includes("Public record as of 2026-09-27")) {
     fail(`${name}: missing public record date`);
@@ -29,7 +30,7 @@ for (const name of dated) {
   if (!pages[name].includes("DEPLOY_BLOCKED")) fail(`${name}: missing DEPLOY_BLOCKED`);
 }
 
-for (const name of ["about.html", "trust.html", "index.html", "research.html"]) {
+for (const name of ["about.html", "trust.html", "index.html", "research.html", "tools.html"]) {
   const source = pages[name];
   for (const required of [
     "Jack Zingale Schiro",
@@ -53,7 +54,7 @@ const tombstones = [
   "Life Ops",
   "Furphy Grok duplicate",
 ];
-for (const name of ["index.html", "about.html", "research.html", "privacy.html", "terms.html"]) {
+for (const name of ["index.html", "about.html", "research.html", "tools.html", "privacy.html", "terms.html"]) {
   for (const tombstone of tombstones) {
     if (pages[name].includes(tombstone)) fail(`${name}: lists tombstone as public copy: ${tombstone}`);
   }
@@ -67,7 +68,7 @@ else {
     if (!pending[1].includes(tombstone)) fail(`trust.html pending-delete list missing ${tombstone}`);
   }
 }
-for (const name of ["trust.html", "about.html", "index.html"]) {
+for (const name of ["trust.html", "about.html", "index.html", "tools.html"]) {
   const active = pages[name].match(/<ul data-seat-status="active">([\s\S]*?)<\/ul>/);
   if (!active) fail(`${name}: missing active seat list`);
   else {
@@ -109,6 +110,7 @@ const expected = {
   "https://ichartwrightai.com/about.html": "about.html",
   "https://ichartwrightai.com/trust.html": "trust.html",
   "https://ichartwrightai.com/research.html": "research.html",
+  "https://ichartwrightai.com/tools.html": "tools.html",
   "https://ichartwrightai.com/privacy.html": "privacy.html",
   "https://ichartwrightai.com/terms.html": "terms.html",
 };
@@ -123,9 +125,49 @@ for (const loc of locs) {
 }
 if (locs.length !== Object.keys(expected).length) fail(`sitemap.xml: expected ${Object.keys(expected).length} urls, found ${locs.length}`);
 
-for (const name of ["trust.html", "research.html"]) {
+for (const name of ["trust.html", "research.html", "tools.html"]) {
   if (!/<h1>[\s\S]*?<\/h1>/.test(pages[name])) fail(`${name}: missing h1`);
   if (!pages[name].includes("<title>")) fail(`${name}: missing title`);
+}
+
+const previewClaim = "does not update live Sites version 11";
+for (const name of ["index.html", "about.html", "trust.html", "research.html", "tools.html"]) {
+  if (!pages[name].includes(previewClaim)) fail(`${name}: missing preview non-claim`);
+}
+if (pages["trust.html"].includes("custom-domains.chatgpt.site")) {
+  fail("trust.html: must not treat a CDN host as the live source of truth");
+}
+for (const required of [
+  "Cursor Sites",
+  "version 11",
+  "CW-WEB-2026-08-28-V11",
+  "0342e5c",
+  "UNVERIFIED",
+  "2026-09-13",
+  "2026-09-23",
+]) {
+  if (!pages["trust.html"].includes(required)) fail(`trust.html: missing ${required}`);
+}
+
+const reconcile = read("RECONCILE-LIVE-VS-REPO.md");
+for (const required of [
+  "not the source of truth",
+  "About · iChartWrightAI",
+  "About ChartWrightAI",
+  "7,791",
+  "appgprj_6a880b26bc94819186d2435defae4085",
+  "CW-WEB-2026-08-28-V11",
+  "0342e5c",
+  "UNVERIFIED",
+  "DEPLOY_BLOCKED",
+  "does not update live Sites version 11",
+  "SPA fallback",
+  "Dan",
+]) {
+  if (!reconcile.includes(required)) fail(`RECONCILE-LIVE-VS-REPO.md: missing ${required}`);
+}
+if (/\bDan\b/.test(reconcile) && !reconcile.includes("No Dan biography")) {
+  fail("RECONCILE-LIVE-VS-REPO.md: Dan mention is not the no-role statement");
 }
 
 if (failures.length) {

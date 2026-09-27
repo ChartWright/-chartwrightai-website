@@ -1,8 +1,8 @@
-# Lab draft for ChartWright/-chartwrightai-website.
-# Observed 2026-09-27: https://ichartwrightai.com/robots.txt returned HTTP 404
-# on the live host. This file is not a production deploy.
+# Unblessed preview for ChartWright/-chartwrightai-website.
+# Live https://ichartwrightai.com/robots.txt and /sitemap.xml return HTTP 404
+# as SPA fallback HTML. This file does not update Cursor Sites version 11.
 # Gate1 NOT PASSED. DEPLOY_BLOCKED.
-# Sitemap entries are files that exist in this static tree only.
+# Sitemap entries are preview files that exist in this static tree only.
 
 User-agent: *
 Allow: /
