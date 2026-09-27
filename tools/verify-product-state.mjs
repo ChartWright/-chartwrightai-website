@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 
 const failures = [];
@@ -157,6 +158,24 @@ if (pages["research.html"].includes("2026-09-23")) {
 }
 
 const reconcile = read("RECONCILE-LIVE-VS-REPO.md");
+const reconcileSha = createHash("sha256").update(reconcile).digest("hex");
+const lockedReconcileSha = "193d511f34cb29cf4d3b1055c097293cecbfff34c3d440b61719ce5c3831c65c";
+if (reconcileSha !== lockedReconcileSha) {
+  fail(`RECONCILE-LIVE-VS-REPO.md: SHA-256 ${reconcileSha} is not the locked v1.1 digest`);
+}
+const package1 = read("PACKAGE-1.md");
+for (const required of [
+  "Package 1 — Website Truth",
+  "Package 1 / DEPLOY_BLOCKED / awaiting JACK_NAMED_PUBLICATION",
+  "JACK_NAMED_PUBLICATION",
+  "does not deploy Cursor Sites version 11",
+  lockedReconcileSha,
+]) {
+  if (!package1.includes(required)) fail(`PACKAGE-1.md: missing ${required}`);
+}
+if (!pages["trust.html"].includes("awaiting JACK_NAMED_PUBLICATION")) {
+  fail("trust.html: missing JACK_NAMED_PUBLICATION wait state");
+}
 for (const required of [
   "Live vs repo reconcile — v1.1",
   "appgprj_6a880b26bc94819186d2435defae4085",

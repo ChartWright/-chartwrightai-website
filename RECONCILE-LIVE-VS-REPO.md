@@ -38,7 +38,3 @@ Live blocked: FO5b writer, site SS mirror, Gate1, Offer A buyer send, Mon 8:05 C
 
 ## Walls
 Gate1 NOT PASSED · DEPLOY_BLOCKED · Stripe NOT_WIRED · Dan NO ROLE · no client send · no push/merge/deploy unless Jack names.
-
-## Draft branch context
-
-This v1.1 text is included in the unblessed preview pull request. Honesty banners added on this branch do not move Sites v11. Lane1 digests above are the supplied inventory; they were not re-hashed in this environment. `0342e5c` is not a commit in this repository.
