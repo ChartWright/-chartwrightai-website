@@ -21,6 +21,7 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--ink); font-family: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.65; }
+  p, li, td, th, code, .ribbon { overflow-wrap: anywhere; }
   a { color: var(--accent); text-decoration: none; }
   a:focus-visible { outline: 2px solid var(--accent-3); outline-offset: 2px; }
   .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
@@ -34,12 +35,12 @@
   section { padding: 22px 0; }
   .banner {
     border: 1px solid var(--line); border-radius: 18px; background: var(--bg-raised);
-    padding: 22px; margin-top: 18px;
+    padding: 22px; margin-top: 18px; max-width: 100%; overflow-x: auto;
   }
   .banner strong { color: var(--ink); }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
   .chip { font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700; border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; color: var(--accent-3); }
-  table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 0.92rem; }
+  table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 0.92rem; table-layout: fixed; }
   th, td { text-align: left; vertical-align: top; padding: 10px 8px; border-top: 1px solid var(--line); color: var(--ink-soft); }
   th { color: var(--ink-faint); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; }
   footer.site { border-top: 1px solid var(--line); padding: 36px 0 64px; color: var(--ink-faint); font-size: 0.86rem; }
