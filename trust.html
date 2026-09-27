@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Trust Center · ChartWrightAI</title>
+<meta name="description" content="Working-tree Trust Center public record as of 2026-09-27. Gate1 is not passed. Deploy is blocked. Product states stay fail-closed." />
+<link rel="canonical" href="https://ichartwrightai.com/trust.html" />
+<style>
+  :root {
+    --bg: #060b1c; --bg-raised: #0d1530; --line: rgba(122,148,210,0.22);
+    --ink: #e8ecf7; --ink-soft: #a7b2d1; --ink-faint: #6c7899;
+    --accent: #4c8df6; --accent-3: #39c0e8;
+    --grad: linear-gradient(100deg, #39c0e8 0%, #4c8df6 45%, #8a6ff0 100%);
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #f4f7fe; --bg-raised: #ffffff; --line: rgba(58,82,148,0.18);
+      --ink: #131b33; --ink-soft: #455072; --ink-faint: #7683a6;
+      --accent: #2f6fe4; --accent-3: #0d9ecf;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.65; }
+  a { color: var(--accent); text-decoration: none; }
+  a:focus-visible { outline: 2px solid var(--accent-3); outline-offset: 2px; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+  .ribbon { background: var(--bg-raised); border-bottom: 1px solid var(--line); font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); text-align: center; padding: 8px 16px; }
+  .ribbon strong { color: var(--accent-3); font-weight: 650; }
+  header.page { padding: 64px 0 12px; }
+  .eyebrow { font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-3); font-weight: 650; }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -0.02em; line-height: 1.1; margin: 10px 0 14px; }
+  h2 { font-size: 1.35rem; letter-spacing: -0.015em; margin: 0 0 10px; }
+  h3 { font-size: 1.02rem; margin: 0 0 6px; }
+  .lede, p, li, td { color: var(--ink-soft); }
+  section { padding: 28px 0; }
+  .panel { border: 1px solid var(--line); border-radius: 18px; background: var(--bg-raised); padding: 22px; margin-top: 14px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .chip { font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700; border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; color: var(--accent-3); }
+  table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 0.92rem; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 8px; border-top: 1px solid var(--line); }
+  th { color: var(--ink-faint); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  ul { margin: 8px 0 0 1.15rem; }
+  li { margin: 4px 0; }
+  footer.site { border-top: 1px solid var(--line); padding: 36px 0 64px; color: var(--ink-faint); font-size: 0.86rem; }
+  footer .wrap { display: grid; gap: 10px; }
+</style>
+</head>
+<body>
+<div class="ribbon"><strong>Public record as of 2026-09-27</strong> · Gate1 NOT PASSED · DEPLOY_BLOCKED · Lab draft in this repository</div>
+<header class="page">
+  <div class="wrap">
+    <span class="eyebrow">Trust Center · working tree</span>
+    <h1>Proof before promotion.</h1>
+    <p class="lede">This public record states product status, evidence boundaries, and the operating roster that this repository can actually support. It does not attest which version is serving ichartwrightai.com. A page in this tree cannot self-attest a deploy.</p>
+    <div class="chips" aria-label="Product state">
+      <span class="chip">Public record as of 2026-09-27</span>
+      <span class="chip">Gate1 NOT PASSED</span>
+      <span class="chip">DEPLOY_BLOCKED</span>
+      <span class="chip">Single domain · ichartwrightai.com</span>
+    </div>
+  </div>
+</header>
+<main>
+  <section>
+    <div class="wrap">
+      <h2>What changed in this record</h2>
+      <div class="panel">
+        <p>On 2026-09-27 the live Trust Center at https://ichartwrightai.com/trust still showed a historical check date of <strong>2026-09-13</strong>. This working-tree page moves the organizational public record to 2026-09-27 without opening Gate1 and without claiming a production deploy.</p>
+        <p style="margin-top:10px">The live domain answered from <code>custom-domains.chatgpt.site</code> (Vinext / Next response headers, Cloudflare). This GitHub repository is a static HTML tree. The commits named on the live Trust Center are not in this repository. Publishing this file does not update the live host.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Product-state vocabulary</h2>
+      <p>Product state describes availability. Evidence state describes what supports a statement. A demonstration label does not promote a surface to production.</p>
+      <div class="panel">
+        <table>
+          <thead><tr><th>State</th><th>Meaning on this record</th></tr></thead>
+          <tbody>
+            <tr><td>PUBLIC DEMO</td><td>A public, bounded demonstration. Not a production service and not a performance claim.</td></tr>
+            <tr><td>SYNTHETIC</td><td>A fictional fixture used to show mechanics. It is not a live score.</td></tr>
+            <tr><td>CONTROLLED DEVELOPMENT</td><td>Work that remains blocked from production or commercial availability.</td></tr>
+            <tr><td>UNAVAILABLE</td><td>A capability or evidence dependency that is not enabled. No substitute value may be inferred.</td></tr>
+            <tr><td>DEPLOY_BLOCKED</td><td>This repository must not be merged to production or pointed at the public domain unless Jack names that deploy.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Public capability registry</h2>
+      <p>States below are the conservative reading of the live site observed on 2026-09-27, plus the gates this task is not allowed to open. Missing evidence stays UNAVAILABLE.</p>
+      <div class="panel">
+        <table>
+          <thead><tr><th>Capability</th><th>State</th><th>Boundary</th></tr></thead>
+          <tbody>
+            <tr><td>Tools gateway</td><td>PUBLIC DEMO</td><td>Observed live. Decision-first route to bounded educational tools. Source for that route is not in this repository.</td></tr>
+            <tr><td>Investment Intelligence</td><td>PUBLIC DEMO</td><td>Observed live. Synthetic scenario and ranking mechanics. This repository does not copy fixture scores.</td></tr>
+            <tr><td>Guided proof CW-SYN-001</td><td>PUBLIC DEMO · SYNTHETIC</td><td>Observed live. Fictional case. Human review required. External action none.</td></tr>
+            <tr><td>Live market data</td><td>UNAVAILABLE</td><td>No authorized provider, rights, and freshness receipt is bound here.</td></tr>
+            <tr><td>Live signal scores</td><td>UNAVAILABLE</td><td>Not published. Public demos must not be read as production signals.</td></tr>
+            <tr><td>Brokerage connectivity</td><td>UNAVAILABLE</td><td>No account access, order routing, or execution.</td></tr>
+            <tr><td>Research subscription</td><td>CONTROLLED DEVELOPMENT</td><td>Not offered for purchase through the observed live site.</td></tr>
+            <tr><td>Gate1 production release</td><td>UNAVAILABLE</td><td>Gate1 NOT PASSED.</td></tr>
+            <tr><td>Deploy of this repository</td><td>DEPLOY_BLOCKED</td><td>Awaiting a deploy Jack names. This pull request does not deploy.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Operating roster</h2>
+      <p>Founder and CEO Jack Zingale Schiro holds sole human clearance. Specialized AI roles are software roles. They are not employees, additional founders, or independent authorities.</p>
+      <div class="panel">
+        <h3>Active</h3>
+        <ul data-seat-status="active">
+          <li>PMO</li>
+          <li>Research (ELONMUSK research lane)</li>
+          <li>Independent Audit</li>
+        </ul>
+        <h3 style="margin-top:16px">External</h3>
+        <ul data-seat-status="external">
+          <li>Furphy — Codex only. Not a Grok seat.</li>
+        </ul>
+        <h3 style="margin-top:16px">Paused</h3>
+        <ul data-seat-status="paused">
+          <li>Elon Musk advisory template — paused as-is. Same agent as Research. Advisory mode stays paused.</li>
+        </ul>
+        <h3 style="margin-top:16px">Not live seats</h3>
+        <p>Pending delete. These names are not active and must not be read as the operating company.</p>
+        <ul data-seat-status="pending-delete">
+          <li>Seat Architect</li>
+          <li>Offer A Outbound</li>
+          <li>Growth SEO/AEO</li>
+          <li>Life Ops</li>
+          <li>Furphy Grok duplicate</li>
+        </ul>
+        <p style="margin-top:14px">Roster source for this draft is seat register v1.3 dated 2026-09-27. The v1.2 digest beginning f6313520 and ending 5cec was supplied as an independent rehash match. This environment did not rehash that Mac file. Internal seat identifiers are omitted from this public page.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Host divergence observed 2026-09-27</h2>
+      <div class="panel">
+        <table>
+          <thead><tr><th>Check</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr><td>Live Trust date</td><td>2026-09-13 historical receipt. Stale at the two-week boundary relative to 2026-09-27.</td></tr>
+            <tr><td>Live sitemap.xml and robots.txt</td><td>HTTP 404.</td></tr>
+            <tr><td>Public /login, /signin, /sign-in, /auth, /app, /dashboard, /members</td><td>HTTP 404. Authenticated surfaces were not verified. This page does not invent a login.</td></tr>
+            <tr><td>Live release identity shown on Trust</td><td>Historical only. Site project appgprj_6a880b26bc94819186d2435defae4085. Historical base commit 3be86e552fb1bc4b719ff0bc65e515dd480c2f56. Reviewed source parent 6b2754191fc505ac51877501bc2f94731aa3deea. Those commits are not in this repository and were not re-hashed here.</td></tr>
+            <tr><td>This repository</td><td>Static files on ChartWright/-chartwrightai-website. GitHub Pages metadata still names the custom domain. Public DNS for the domain did not serve this tree on 2026-09-27.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Research delivery boundary</h2>
+      <div class="panel">
+        <p>Live research and tools routes observed on 2026-09-27 are PUBLIC DEMO and SYNTHETIC. This Trust record does not promote them to production, does not attach live signal scores, and does not open Gate1. The research record in this repository is the honesty banner at <a href="research.html">research.html</a>.</p>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <p>ChartWrightAI is developing impersonal, rules-based chart signals, intended for informational purposes once released. Nothing on this site is personalized investment advice. No brokerage connection. No trade execution.</p>
+    <p>Public record as of 2026-09-27 · Gate1 NOT PASSED · DEPLOY_BLOCKED</p>
+    <p>© 2026 ChartWrightAI · ichartwrightai.com · <a href="index.html">Home</a> · <a href="about.html">About</a> · <a href="research.html">Research record</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p>
+  </div>
+</footer>
+</body>
+</html>
