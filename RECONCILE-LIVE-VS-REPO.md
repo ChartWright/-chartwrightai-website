@@ -1,51 +1,44 @@
-# Reconcile live site vs this repository
+# Live vs repo reconcile — v1.1 · 2026-09-27 ~4:26 PM CT
 
-**Record date:** 2026-09-27  
-**This repository:** `ChartWright/-chartwrightai-website` (static HTML preview)  
-**Live domain:** `https://ichartwrightai.com`  
-**Status:** DEPLOY_BLOCKED · Gate1 NOT PASSED · this file does not update live Sites version 11
+Supersedes v1.0 (`f3a9a7c0…5d72`). Incorporates full public live audit + Lane1 inventory.
 
-This repository is an unblessed preview package. It is not the source of truth for the live site.
+## Live surface
+- Apex `https://ichartwrightai.com/` **200** (no redirect)
+- `https://www.ichartwrightai.com/` **200** — **does NOT redirect** to apex (same content; Cloudflare params differ)
+- Host: Cursor Sites project `appgprj_6a880b26bc94819186d2435defae4085`
+- Pointer: `governance/CURRENT-PUBLIC-WEBSITE.json` on ChartWright/chartwright-ai
+- Record CW-WEB-2026-08-28-V11 · version 11 · verification_status **UNVERIFIED**
+- sites_source_commit `0342e5c…` **NOT in GitHub** (either ChartWright repo) · sites_source_repository null
+- No `Last-Modified` / `dateModified` on public HTML → current deploy date **UNATTESTED**
 
-## Live identity (supplied verification, 2026-09-27)
+## Live routes (public audit)
+| Path | HTTP | Freshness | Notes |
+|---|---|---|---|
+| / | 200 | DATE_UNKNOWN | Specialized AI roles · one human founder · no seat names |
+| /about | 200 | DATE_UNKNOWN | Jack Founder/CEO & Chief AI Architect; AI roles = software not employees |
+| /trust | 200 | HISTORICAL receipt **checked 2026-09-13** (explicitly not current deploy) | FRESH vs 2-week cutoff; deploy still UNATTESTED |
+| /tools | 200 | DATE_UNKNOWN | PUBLIC DEMO / educational |
+| /research | 200 | DATE_UNKNOWN | research-platform-v2-illustrative; synthetic samples |
+| /research/investment-intelligence | 200 | DATE_UNKNOWN | synthetic educational |
+| /proof/one-case-five-views | 200 | DATE_UNKNOWN | guided proof (bare `/proof` = 404) |
+| /privacy /terms | 200 | DATE_UNKNOWN | |
+| /sitemap.xml /robots.txt | 404 | n/a | SPA HTML shell |
+| /login /signin /auth /dashboard /company /contact /team | 404 | n/a | no public auth UI |
 
-| Field | Value |
-|---|---|
-| Product | Cursor Sites |
-| Project | `appgprj_6a880b26bc94819186d2435defae4085` |
-| Version | 11 |
-| Record | `CW-WEB-2026-08-28-V11` |
-| `sites_source_commit` | `0342e5c…` |
-| `sites_source_repository` | null / missing evidence |
-| `verification_status` | UNVERIFIED |
+**Org scan:** Dan / Furphy / CG / Elon / seats / staff — **NOT FOUND** on public HTML (employees only in negation on About). Correct under Gate1; catch-up preview may name ACTIVE operating seats as software roles without implying employees.
 
-`0342e5c` is not a commit in this repository (`git rev-parse` fails; it does not appear in branch history). `ChartWright/chartwright-ai` could not be opened from this environment (GitHub could not resolve the repository), so this note does not re-hash that repo. The supplied verification already states the same commit is absent there.
+## Repo ≠ live
+- `ChartWright/-chartwrightai-website` + `chartwright-ai/website/`: ChartWrightAI-branded UNBLESSED preview; no trust/tools/research pages; about ~7.8KB vs live ~25KB.
+- Catch-up updates those previews + ops receipts only. **Does not** move Sites v11.
 
-Source linkage is UNVERIFIED. Do not treat a merge of this preview as a publish of Sites version 11.
+## Research workflow (lab inventory ~4:25 PM CT)
+Lane1 manufacture largely **DONE** on Mac (frameworks `19feaef2…`, fixtures `a4d57192…`, Gate3 mirrors, NEXT SPY/VTSAX SS OMITTED, Offer A fold `233f79bb…`, Furphy R1–R4 closeout `a205c9af…`, SCORE_INTEGRITY harden `df9f051f…` 9/9 lab).
+Open lab holes: box `FOLD-CONSTRAINTS/` missing; some box sidecars HOLE/STALE; team SIGN_OFF (Apple/Claude/Gemini returns HOLE).
+Live blocked: FO5b writer, site SS mirror, Gate1, Offer A buyer send, Mon 8:05 CT collect-only pulls.
 
-## Bless constraint
+## Walls
+Gate1 NOT PASSED · DEPLOY_BLOCKED · Stripe NOT_WIRED · Dan NO ROLE · no client send · no push/merge/deploy unless Jack names.
 
-`chartwright-ai/website` DESIGN-NOTES were not readable here. The supplied constraint is that those notes say nothing in that website tree may go live until Jack blesses it. This preview is under the same wall: nothing here goes live until Jack blesses a named deploy.
+## Draft branch context
 
-## Divergences
-
-| Topic | Live site | This preview (`main`, then this branch) |
-|---|---|---|
-| Branding | About title `About · iChartWrightAI`. Public brand iChartWrightAI. | `about.html` title remains `About ChartWrightAI`. The preview was not rebranded. |
-| About size | About document is about 25KB (a GET on 2026-09-27 returned 25,411 bytes). | `main` `about.html` is 7,791 bytes. This draft is larger only because of the roster block. It is still the small preview, not the live About document. |
-| About roster | Founder Jack plus generic “Specialized AI roles.” Does not name PMO, Research, Independent Audit, or Furphy Codex. PUBLIC DEMO / SYNTHETIC language is on the live research and tools surfaces. | Draft names Jack Zingale Schiro as sole clearance and the active software roles. Furphy is Codex only. Advisory template is paused. Tombstones are not listed as live. |
-| Trust | Trust Center date **2026-09-13**. | No Trust page on `main`. This branch adds `trust.html` as a preview record dated 2026-09-27. It does not change the live Trust date. |
-| Research | Live research surface shows **2026-09-23**. Routes such as `/research` are the Sites app, labeled public demo / synthetic. | No research page on `main`. This branch adds `research.html` as an honesty banner only. |
-| Tools | Live `/tools` is the Sites tools gateway. | No tools page on `main`. This branch adds `tools.html` as an honesty banner only. |
-| sitemap.xml / robots.txt | HTTP 404. The body is SPA fallback HTML, not an XML sitemap or a robots file. | Absent on `main`. This branch adds both for preview files that exist in this tree (`/`, `about.html`, `trust.html`, `research.html`, `tools.html`, `privacy.html`, `terms.html`). |
-| Auth URLs | Public `/login`, `/signin`, `/auth`, `/app`, `/dashboard` return 404. Authenticated view UNVERIFIED. | No login and no invented auth. |
-| Dan | Not a live role. | No Dan biography in this preview. |
-| Deploy | Sites version 11 is the live artifact. | DEPLOY_BLOCKED. This pull request does not update live Sites version 11. |
-
-## What this branch is allowed to be
-
-A draft catch-up of the preview package: dated roster copy, honesty banners, and preview `robots.txt` / `sitemap.xml`.
-
-## What this branch is not
-
-A source restore of Sites version 11, a blessing, a Gate1 pass, or a production deploy.
+This v1.1 text is included in the unblessed preview pull request. Honesty banners added on this branch do not move Sites v11. Lane1 digests above are the supplied inventory; they were not re-hashed in this environment. `0342e5c` is not a commit in this repository.

@@ -155,9 +155,9 @@
         <table>
           <thead><tr><th>Check</th><th>Result</th></tr></thead>
           <tbody>
-            <tr><td>Live Trust date</td><td>2026-09-13 historical receipt. Stale at the two-week boundary relative to 2026-09-27.</td></tr>
-            <tr><td>Live sitemap.xml and robots.txt</td><td>HTTP 404. The body is SPA fallback HTML, not an XML sitemap or a robots file.</td></tr>
-            <tr><td>Live Research date</td><td>The live research surface shows 2026-09-23. This preview does not change that page.</td></tr>
+            <tr><td>Live Trust date</td><td>Historical receipt checked 2026-09-13. Explicitly not the current deploy. Fresh against the two-week cutoff. Current deploy date UNATTESTED. No Last-Modified on the public HTML.</td></tr>
+            <tr><td>Live sitemap.xml and robots.txt</td><td>HTTP 404. SPA HTML shell, not an XML sitemap or a robots file.</td></tr>
+            <tr><td>Live Research freshness</td><td>DATE_UNKNOWN. Illustrative synthetic samples. This preview does not assign a content date the live page does not show.</td></tr>
             <tr><td>Public /login, /signin, /sign-in, /auth, /app, /dashboard, /members</td><td>HTTP 404. Authenticated surfaces were not verified. This page does not invent a login.</td></tr>
             <tr><td>Sites identity</td><td>Cursor Sites project appgprj_6a880b26bc94819186d2435defae4085, version 11, record CW-WEB-2026-08-28-V11. sites_source_commit 0342e5c… is absent from this repository. sites_source_repository is null or missing evidence. verification_status UNVERIFIED. This preview does not update live Sites version 11.</td></tr>
             <tr><td>This repository</td><td>Unblessed static preview on ChartWright/-chartwrightai-website. It is not the source of truth for the live site.</td></tr>
@@ -171,7 +171,7 @@
     <div class="wrap">
       <h2>Research delivery boundary</h2>
       <div class="panel">
-        <p>Live research and tools routes are PUBLIC DEMO and SYNTHETIC. The live research surface shows 2026-09-23. This Trust record does not promote them to production, does not attach live signal scores, and does not open Gate1. Preview honesty banners: <a href="research.html">research.html</a> and <a href="tools.html">tools.html</a>. This preview does not update live Sites version 11.</p>
+        <p>Live research and tools routes are PUBLIC DEMO and SYNTHETIC. Their public freshness is DATE_UNKNOWN. This Trust record does not promote them to production, does not attach live signal scores, and does not open Gate1. Preview honesty banners: <a href="research.html">research.html</a> and <a href="tools.html">tools.html</a>. This preview does not update live Sites version 11.</p>
       </div>
     </div>
   </section>

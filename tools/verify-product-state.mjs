@@ -144,30 +144,36 @@ for (const required of [
   "0342e5c",
   "UNVERIFIED",
   "2026-09-13",
-  "2026-09-23",
+  "DATE_UNKNOWN",
+  "UNATTESTED",
 ]) {
   if (!pages["trust.html"].includes(required)) fail(`trust.html: missing ${required}`);
+}
+if (pages["trust.html"].includes("2026-09-23")) {
+  fail("trust.html: must not assign a 2026-09-23 live research date");
+}
+if (pages["research.html"].includes("2026-09-23")) {
+  fail("research.html: must not assign a 2026-09-23 live research date");
 }
 
 const reconcile = read("RECONCILE-LIVE-VS-REPO.md");
 for (const required of [
-  "not the source of truth",
-  "About · iChartWrightAI",
-  "About ChartWrightAI",
-  "7,791",
+  "Live vs repo reconcile — v1.1",
   "appgprj_6a880b26bc94819186d2435defae4085",
   "CW-WEB-2026-08-28-V11",
   "0342e5c",
   "UNVERIFIED",
+  "UNATTESTED",
+  "does NOT redirect",
+  "DATE_UNKNOWN",
+  "checked 2026-09-13",
+  "SPA HTML shell",
+  "Does not** move Sites v11",
   "DEPLOY_BLOCKED",
-  "does not update live Sites version 11",
-  "SPA fallback",
-  "Dan",
+  "Dan NO ROLE",
+  "Stripe NOT_WIRED",
 ]) {
   if (!reconcile.includes(required)) fail(`RECONCILE-LIVE-VS-REPO.md: missing ${required}`);
-}
-if (/\bDan\b/.test(reconcile) && !reconcile.includes("No Dan biography")) {
-  fail("RECONCILE-LIVE-VS-REPO.md: Dan mention is not the no-role statement");
 }
 
 if (failures.length) {
